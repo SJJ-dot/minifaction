@@ -5,6 +5,7 @@ import com.sjj.fiction.model.Chapter
 import org.jsoup.Jsoup
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import java.net.URLEncoder
 
 @Repository
@@ -26,7 +27,22 @@ class BiqugeFictionSource : FictionSourceInterface {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun loadBookDetailsAndChapterList(book: Book): Flux<Book> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun intro(url: String): Mono<Book> {
+        return Mono.create{
+            val parse = Jsoup.connect(url).get().body()
+            val book = Book()
+            book.url = url
+            val info = parse.getElementById("info")
+            book.name = info.child(0).text()
+            book.author = info.child(1).text().trim().split("：").last()
+            book.bookCoverImgUrl = parse.getElementById("fmimg").select("[src]")[0].attr("src")
+            book.intro = parse.getElementById("intro").child(0).text()
+            val children = parse.getElementById("list").child(0).children()
+            val last = children.indexOfLast { it.tag().name == "dt" }
+            book.chapterList = children.subList(last+1,children.size)
+                    .map { it.select("a[href]") }
+                    .mapIndexed { index, e -> Chapter(e.attr("abs:href"), index = index, chapterName = e.text()) }
+            it.success(book)
+        }
     }
 }

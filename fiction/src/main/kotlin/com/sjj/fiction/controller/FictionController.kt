@@ -10,17 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
 @RestController
 class FictionController {
     @Autowired
-    lateinit var fictionService:FictionService
+    lateinit var fictionService: FictionService
+
     @RequestMapping(value = "/", method = [RequestMethod.GET])
     fun default() = "hello everyone"
 
-    @RequestMapping(value = "/{name}", method = [RequestMethod.GET])
-    fun search(@PathVariable name: String): Flux<Result<Book>> {
-        return fictionService.search(name).map { it.toResult() }
+    @RequestMapping(value = "/search", method = [RequestMethod.GET])
+    fun search(searchKey: String): Mono<Result<List<Book>>> {
+        return fictionService.search(searchKey).map { it.toResult() }
     }
 
+    @RequestMapping(value = "/intro", method = [RequestMethod.GET])
+    fun intro(url: String): Mono<Result<Book>> {
+        return fictionService.intro(url).map { it.toResult() }
+    }
 }

@@ -5,6 +5,7 @@ import com.sjj.fiction.model.Chapter
 import org.jsoup.Jsoup
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import java.net.URL
 import java.net.URLEncoder
 
@@ -13,7 +14,7 @@ class AszwFictionSource : FictionSourceInterface {
     override val baseUrl = "https://www.aszw.org"
     override fun search(search: String): Flux<Book> {
         return Flux.create {
-            val document = Jsoup.connect("$baseUrl/modules/article/search.php?searchkey=${URLEncoder.encode(search,"gbk")}").get()
+            val document = Jsoup.connect("$baseUrl/modules/article/search.php?searchkey=${URLEncoder.encode(search, "gbk")}").get()
             val body = document.body()
             val content = body.getElementById("content")
             val element = content.getElementsByTag("tbody")[0].getElementsByTag("tr")
@@ -32,7 +33,19 @@ class AszwFictionSource : FictionSourceInterface {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun loadBookDetailsAndChapterList(book: Book): Flux<Book> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun intro(url: String): Mono<Book> {
+        return Mono.create {
+            val book = Book()
+            book.url = url
+            val body = Jsoup.connect(url).get().body()
+            val parse = body.getElementsByClass("info")[0]
+            val btitle = parse.getElementsByClass("btitle")
+            book.name = btitle[0].child(0).text()
+            book.author = btitle[0].child(1).text().trim().split("：").last()
+            book.bookCoverImgUrl = parse.select("[src]")[0].attr("src")
+            book.intro = parse.getElementsByClass("book")[0].getElementsByClass("js")[0].text()
+            book.chapterList = body.getElementById("at").select("a[href]").mapIndexed { index, e -> Chapter(e.attr("abs:href"), index = index, chapterName = e.text()) }
+            it.success(book)
+        }
     }
 }
