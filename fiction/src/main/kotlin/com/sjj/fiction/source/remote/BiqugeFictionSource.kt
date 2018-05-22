@@ -29,7 +29,7 @@ class BiqugeFictionSource : FictionSourceInterface {
             val parse = get.getElementById("content")
             val chapter = Chapter()
             chapter.url = url
-            chapter.chapterName =get.getElementsByClass("bookname")[0].text()
+            chapter.chapterName =get.getElementsByClass("bookname")[0].child(0).text()
             chapter.content = parse.html()
             it.success(chapter)
         }
