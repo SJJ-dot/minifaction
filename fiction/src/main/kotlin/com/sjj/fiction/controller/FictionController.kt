@@ -1,6 +1,7 @@
 package com.sjj.fiction.controller
 
 import com.sjj.fiction.model.Book
+import com.sjj.fiction.model.Chapter
 import com.sjj.fiction.model.Result
 import com.sjj.fiction.service.FictionService
 import com.sjj.fiction.util.toResult
@@ -29,4 +30,10 @@ class FictionController {
     fun intro(url: String): Mono<Result<Book>> {
         return fictionService.intro(url).map { it.toResult() }
     }
+
+    @RequestMapping(value = "/chapter", method = [RequestMethod.GET])
+    fun chapter(url: String): Mono<Result<Chapter>> {
+        return fictionService.chapter(url).map { it.toResult() }
+    }
+
 }

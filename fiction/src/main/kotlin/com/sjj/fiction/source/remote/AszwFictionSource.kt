@@ -29,8 +29,16 @@ class AszwFictionSource : FictionSourceInterface {
         }
     }
 
-    override fun loadBookChapter(chapter: Chapter): Flux<Chapter> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun chapter(url: String): Mono<Chapter> {
+        return Mono.create<Chapter> {
+            val get = Jsoup.connect(url).get()
+            val parse = get.getElementById("contents")
+            val chapter = Chapter()
+            chapter.url = url
+            chapter.chapterName =get.getElementsByClass("bdb")[0].text()
+            chapter.content = parse.html()
+            it.success(chapter)
+        }
     }
 
     override fun intro(url: String): Mono<Book> {
@@ -44,7 +52,7 @@ class AszwFictionSource : FictionSourceInterface {
             book.author = btitle[0].child(1).text().trim().split("：").last()
             book.bookCoverImgUrl = parse.select("[src]")[0].attr("src")
             book.intro = parse.getElementsByClass("book")[0].getElementsByClass("js")[0].text()
-            book.chapterList = body.getElementById("at").select("a[href]").mapIndexed { index, e -> Chapter(e.attr("abs:href"), index = index, chapterName = e.text()) }
+            book.chapterList = body.getElementById("at").select("a[href]").mapIndexed { index, e -> Chapter(e.attr("abs:href"),chapterName = e.text()) }
             it.success(book)
         }
     }

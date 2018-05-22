@@ -1,6 +1,7 @@
 package com.sjj.fiction.service
 
 import com.sjj.fiction.model.Book
+import com.sjj.fiction.model.Chapter
 import com.sjj.fiction.source.remote.FictionSourceInterface
 import com.sjj.fiction.util.domain
 import org.springframework.beans.factory.annotation.Autowired
@@ -52,18 +53,19 @@ class FictionService {
 
     fun intro(url: String): Mono<Book> {
         return Mono.create {
-            val domain = url.domain()
-            if (domain == null) {
-                it.error(Exception("请求URL解析错误：$url"))
-                return@create
-            }
-            val find = fictionSources.find { it.baseUrl.domain().equals(domain) }
-            if (find == null) {
-                it.error(Exception("未找到小说资源站：$domain"))
-                return@create
-            }
-            it.onDispose(find.intro(url).subscribe(it::success,it::error))
-
+            it.onDispose(getSource(url).intro(url).subscribe(it::success, it::error))
         }
     }
+
+    fun chapter(url: String): Mono<Chapter> {
+        return Mono.create {
+            it.onDispose(getSource(url).chapter(url).subscribe(it::success, it::error))
+        }
+    }
+
+    private fun getSource(url: String): FictionSourceInterface {
+        return fictionSources.find { url.domain() == it.baseUrl.domain() }
+                ?: throw Exception("未找到小说资源站：${url.domain()}")
+    }
+
 }

@@ -8,6 +8,6 @@ import reactor.core.publisher.Mono
 interface FictionSourceInterface {
     val baseUrl: String
     fun search(search: String): Flux<Book>
-    fun loadBookChapter(chapter: Chapter): Flux<Chapter>
+    fun chapter(url: String): Mono<Chapter>
     fun intro(url: String): Mono<Book>
 }
