@@ -16,6 +16,21 @@ Page({
     })
   },
   onLoad: function () {
+
+    // wx.request({
+    //   url:"http://118.24.120.20/fictionService/search",
+    //   data:{
+    //     searchKey:"极道天魔",
+    //   },
+    //   method:"GET",
+    //   success: function (res) {
+    //     console.log(res.data)
+    //   },
+    //   fail: function (res) {
+    //     console.log(res.data)
+    //   }
+    // })
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
