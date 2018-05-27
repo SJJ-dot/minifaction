@@ -1,2 +1,10 @@
 <!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<view>
+  <view class='search_input'>
+    <input placeholder="搜索" auto-focus confirm-type="search" bindconfirm='searchBook' />
+  </view>
+  <view wx:for="{{bookList}}" wx:key="url" class='searchResult'>
+    书名：{{item.name}}   作者：{{item.author}}
+  </view>
+</view>
+

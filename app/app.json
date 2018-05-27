@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs",
     "pages/search/search"
   ],
   "window": {
@@ -14,16 +13,16 @@
     "selectedColor": "#FE5050",
     "list": [
       {
-        "selectedIconPath":"images/open_book.png",
-        "iconPath":"images/close_book.png",
+        "selectedIconPath": "images/open_book.png",
+        "iconPath": "images/close_book.png",
         "pagePath": "pages/index/index",
         "text": "首页"
       },
       {
         "selectedIconPath": "images/open_search.png",
         "iconPath": "images/close_search.png",
-        "pagePath":"pages/search/search",
-        "text":"搜索"
+        "pagePath": "pages/search/search",
+        "text": "搜索"
       }
     ]
   }

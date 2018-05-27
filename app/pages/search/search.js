@@ -5,9 +5,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    bookList:[],
   },
-
+  searchBook:function(arg){
+    var searchPage = this;
+    wx.showLoading({
+      title: '加载中……',
+    })
+    wx.request({
+      url: getApp().globalData.baseUrl+'/search', //仅为示例，并非真实的接口地址
+      data: {
+        searchKey: arg.detail.value.trim(),
+      },
+      success: function (res) {
+        wx.hideLoading()
+        if(res.data.status == 1){
+          console.log(res.data.data)
+          searchPage.setData({ bookList: res.data.data })
+        }else{
+          wx.showToast({
+            title: res.data.errorMsg,
+          })
+        }
+      },
+      fail:function(res){
+        wx.hideLoading()
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
