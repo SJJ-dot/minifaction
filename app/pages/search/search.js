@@ -29,6 +29,9 @@ Page({
         }
       },
       fail:function(res){
+        wx.showToast({
+          title: "fail",
+        })
         wx.hideLoading()
       }
     })
