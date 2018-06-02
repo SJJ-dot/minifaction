@@ -2,6 +2,7 @@ package com.sjj.fiction.service
 
 import com.sjj.fiction.model.Book
 import com.sjj.fiction.model.Chapter
+import com.sjj.fiction.model.GBook
 import com.sjj.fiction.source.remote.FictionSourceInterface
 import com.sjj.fiction.util.domain
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,7 +14,7 @@ class FictionService {
     @Autowired
     lateinit var fictionSources: List<FictionSourceInterface>
 
-    fun search(searchKey: String): Mono<List<Book>> {
+    fun search(searchKey: String): Mono<List<GBook>> {
 //       return Flux.merge(fictionServices.map { it.search(name) })
         return Mono.create { emitter ->
             if (searchKey.isEmpty()) {
@@ -22,16 +23,14 @@ class FictionService {
             }
             var count = fictionSources.size
             var error: Throwable? = null
-            var hasData = false
-            val result = mutableListOf<Book>()
+            val result = mutableMapOf<String,MutableList<Book>>()
             fictionSources.forEach {
                 it.search(searchKey).subscribe({
-                    result.add(it)
-                    hasData = true
+                    result.getOrPut(it.name+it.author){ mutableListOf()}.add(it)
                 }, {
                     if (--count == 0) {
-                        if (hasData) {
-                            emitter.success(result)
+                        if (result.isNotEmpty()) {
+                            emitter.success(result.map { GBook(it.value.first().name,it.value.first().author,it.value) })
                         } else {
                             emitter.error(it)
                         }
@@ -40,8 +39,8 @@ class FictionService {
                     it.printStackTrace()
                 }, {
                     if (--count == 0) {
-                        if (hasData || error == null) {
-                            emitter.success(result)
+                        if (result.isNotEmpty() || error == null) {
+                            emitter.success(result.map { GBook(it.value.first().name, it.value.first().author, it.value) })
                         } else {
                             emitter.error(error!!)
                         }

@@ -2,6 +2,7 @@ package com.sjj.fiction.controller
 
 import com.sjj.fiction.model.Book
 import com.sjj.fiction.model.Chapter
+import com.sjj.fiction.model.GBook
 import com.sjj.fiction.model.Result
 import com.sjj.fiction.service.FictionService
 import com.sjj.fiction.util.toResult
@@ -22,7 +23,7 @@ class FictionController {
     fun default() = "hello everyone"
 
     @RequestMapping(value = "/search", method = [RequestMethod.GET])
-    fun search(searchKey: String): Mono<Result<List<Book>>> {
+    fun search(searchKey: String): Mono<Result<List<GBook>>> {
         return fictionService.search(searchKey).map { it.toResult() }
     }
 
