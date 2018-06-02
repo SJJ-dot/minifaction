@@ -21,6 +21,8 @@ Page({
     })
   },
   requetDetails: function (res){
+    var reg = res.url.match("(http[s]?://([a-zA-Z\\d]+\\.)+[a-zA-Z\\d]+)/?")
+    var domain = reg[1];
     wx.showToast({
       title: '数据加载中',
       icon: 'loading',
@@ -35,6 +37,7 @@ Page({
       },
       success:function(res){
         if(res.data.status == 1){
+          res.data.data.domain=domain;
           page.setData({book:res.data.data})
           console.log(res.data.data)
           wx.setStorage({

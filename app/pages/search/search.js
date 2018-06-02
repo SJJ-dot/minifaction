@@ -30,7 +30,6 @@ Page({
       },
       success: function (res) {
         if(res.data.status == 1){
-          console.log(res.data.data)
           searchPage.setData({ bookList: res.data.data })
         }else{
           wx.showToast({
