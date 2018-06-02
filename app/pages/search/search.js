@@ -5,9 +5,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    inputShowed: false,
+    scrollHeight:200,
+    inputShowed: true,
     inputVal: "",
     bookList: [{ "name": "极道天魔", "author": "滚开", "books": [{ "url": "https://www.aszw.org/book/168/168625/", "name": "极道天魔", "author": "滚开", "bookCoverImgUrl": "", "intro": "", "chapterList": [] }, { "url": "https://www.biquge5200.cc/58_58206/", "name": "极道天魔", "author": "滚开", "bookCoverImgUrl": "", "intro": "", "chapterList": [] }, { "url": "https://www.dhzw.org/book/165/165908/", "name": "极道天魔", "author": "滚开", "bookCoverImgUrl": "", "intro": "", "chapterList": [] }, { "url": "http://www.yunlaige.com/book/19984.html", "name": "极道天魔", "author": "滚开", "bookCoverImgUrl": "", "intro": "", "chapterList": [] }] }],
+  },
+  onLoad:function(o){
+    var page = this;
+    wx.createSelectorQuery().select('#searchHead').boundingClientRect(function (rect) {
+      page.setData({ scrollHeight: wx.getSystemInfoSync().windowHeight - rect.height, });
+    }).exec()
   },
   searchBook:function(arg){
     var searchPage = this;
@@ -28,10 +35,24 @@ Page({
         }else{
           wx.showToast({
             title: res.data.errorMsg,
-            icon: 'success',
-            duration: 1000
+            icon: 'none',
+            duration: 2000
           });
         }
+      }
+    })
+  },
+  showDetails:function(e){
+    var item = this.data.bookList[e.currentTarget.dataset.index]
+    var key = "book:" + item.name + "-author:" + item.author
+    item.index = 0
+    wx.setStorage({
+      key: key,
+      data: item,
+      success:function(e){
+        wx.navigateTo({
+          url: '../details/details?key=' + key,
+        })
       }
     })
   },

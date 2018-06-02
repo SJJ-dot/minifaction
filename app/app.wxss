@@ -33,3 +33,7 @@ page{
     text-align: left;
     font-size: 14px;
 }
+.matchParent{
+  height: 100px; 
+  width: 100%;
+}

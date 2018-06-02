@@ -23,6 +23,10 @@ App({
               if (wx.getStorageSync("auth"))
                 getApp().data.baseUrl = "https://hishen.top/fs/";
             }
+          },
+          fail:function(){
+            if (wx.getStorageSync("auth"))
+              getApp().data.baseUrl = "https://hishen.top/fs/";
           }
         })
       }
