@@ -1,4 +1,5 @@
 // pages/details/details.js
+var regStr = "(http[s]?://([a-zA-Z\\d]+\\.)+[a-zA-Z\\d]+)/?"
 Page({
 
   /**
@@ -16,42 +17,45 @@ Page({
      wx.getStorage({
       key: options.key,
       success: function(res) {
+        var gbook = res.data.books[res.data.index];
+        page.setData({
+          book:{
+            name:gbook.name,
+            author:gbook.author,
+            domain:gbook.url.match(regStr)[1]
+          }
+        })
         page.requetDetails(res.data.books[res.data.index])
       },
     })
   },
   requetDetails: function (res){
-    var reg = res.url.match("(http[s]?://([a-zA-Z\\d]+\\.)+[a-zA-Z\\d]+)/?")
-    var domain = reg[1];
-    wx.showToast({
-      title: '数据加载中',
-      icon: 'loading',
-      duration: 3000
-    });
+    var domain = res.url.match(regStr)[1];
+    wx.showNavigationBarLoading();
     var bookKey = res.url;
     var page = this;
-    wx.request({
+  
+   wx.util.http({
       url: getApp().data.baseUrl + '/intro',
-      data:{
-        url:res.url
+      data: {
+        url: res.url
       },
-      success:function(res){
-        if(res.data.status == 1){
-          res.data.data.domain=domain;
-          page.setData({book:res.data.data})
-          console.log(res.data.data)
+      success: function (res) {
+        wx.hideNavigationBarLoading();
+          res.domain = domain;
+          page.setData({ book: res })
+          console.log(res)
           wx.setStorage({
             key: bookKey,
-            data: res.data.data,
+            data: res,
           })
-        }else{
-          page.showLocalData(bookKey,res.data.errorMsg);
-        }
+        
       },
-      fail:function(res){
-        page.showLocalData(bookKey, res.errorMsg);
+      fail: function (res) {
+        wx.hideNavigationBarLoading();
+        page.showLocalData(bookKey, res);
       }
-    })
+    });
   },
   showLocalData:function(key,error){
     var page = this;
@@ -64,7 +68,7 @@ Page({
         wx.showToast({
           title: error,
           icon: 'none',
-          duration: 2000
+          duration: 1000
         });
       },
     })
@@ -72,5 +76,15 @@ Page({
   bindDefaultImage:function(){
     this.data.book.bookCoverImgUrl = "../../images/laokuoteng.jpg"
     this.setData({book:this.data.book})
+  },
+  selectOrigin: function () {
+    var list = [];
+    this.data.book.
+    wx.showActionSheet({
+      itemList: ['item1', 'item2', 'item3', 'item4'],
+      success: function (e) {
+        console.log(e.tapIndex)
+      }
+    })
   }
 })

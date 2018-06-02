@@ -1,6 +1,5 @@
 // pages/search/search.js
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -18,32 +17,24 @@ Page({
   },
   searchBook:function(arg){
     var searchPage = this;
-    wx.showToast({
-      title: '数据加载中',
-      icon: 'loading',
-      duration: 3000
-    });
-    wx.request({
-      url: getApp().data.baseUrl+'/search', //仅为示例，并非真实的接口地址
+    wx.showNavigationBarLoading();
+    wx.util.http({
+      url: getApp().data.baseUrl + '/search', //仅为示例，并非真实的接口地址
       data: {
         searchKey: arg.detail.value.trim(),
       },
       success: function (res) {
-        if(res.data.status == 1){
-          searchPage.setData({ bookList: res.data.data })
-        }else{
-          wx.showToast({
-            title: res.data.errorMsg,
-            icon: 'none',
-            duration: 2000
-          });
-        }
+        wx.hideNavigationBarLoading();
+        searchPage.setData({ bookList: res });
+      },
+      fail: function () {
+        wx.hideNavigationBarLoading();
       }
-    })
+    });
   },
   showDetails:function(e){
     var item = this.data.bookList[e.currentTarget.dataset.index]
-    var key = "book:" + item.name + "-author:" + item.author
+    var key = wx.util.getGBookKey(item)
     item.index = 0
     wx.setStorage({
       key: key,

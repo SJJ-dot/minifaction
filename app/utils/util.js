@@ -1,19 +1,40 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+function http(obj) {
+  wx.request({
+    url: obj.url,
+    data: obj.data,
+    success: function (res) {
+      if (res.statusCode == 200 && res.data.status == 1) {
+        obj.success(res.data.data);
+      } else {
+        var errMsg = res.data.status + ":" + res.data.errorMsg;
+        if (obj.reject !== undefined)
+          obj.reject(errMsg);
+        if (obj.fail !== undefined)
+          obj.fail(errMsg);
+        wx.showToast({
+          title: errMsg,
+          icon: 'none',
+          duration: 2000
+        });
+      }
+    },
+    fail: function (res) {
+      if (obj.fail !== undefined)
+        obj.fail(errMsg);
+      wx.showToast({
+        title: res.errMsg,
+        icon: 'none',
+        duration: 2000
+      });
+    }
+  })
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+function getGBookKey(item) {
+  return "book:" + item.name + "-author:" + item.author
 }
 
 module.exports = {
-  formatTime: formatTime
+  http: http,
+  getGBookKey: getGBookKey,
 }

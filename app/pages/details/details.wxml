@@ -7,10 +7,11 @@
           <view>{{book.name}}</view>
           <view>作者：{{book.author}}</view>
           <view>{{book.chapterList[book.chapterList.length-1].chapterName}}</view>
-          <view>{{book.domain}}</view>
+          <view bindtap='selectOrigin'>{{book.domain}}</view>
       </view>
     </view>
     <view>简介：</view>
     <view>{{book.intro}}</view>
+
   </view>
 </view>
