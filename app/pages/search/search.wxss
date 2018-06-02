@@ -1,9 +1,16 @@
 /* pages/search/search.wxss */
 
-.search_input {
-  border-color: black;
-  border-radius: 2px;
-  margin-right: 25px;
-  margin-left: 25px;
-  border: 1px solid black;
+.searchbar-result{
+    margin-top: 0;
+    font-size: 14px;
+}
+.searchbar-result:before{
+    display: none;
+}
+.weui-cell{
+    padding: 12px 15px 12px 35px;
+}
+.text-right{
+    text-align: right;
+    float:right;
 }
