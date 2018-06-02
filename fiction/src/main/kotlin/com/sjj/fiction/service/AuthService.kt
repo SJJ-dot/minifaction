@@ -12,7 +12,7 @@ class AuthService {
     @Autowired
     private lateinit var httpSource: HttpSource
 
-    private val authSet = mutableSetOf("061DKd531NvtyN16VJ731ftp531DKd5q")
+    private val authSet = mutableSetOf("oGp4M5FSwDIuR1RvbjvlXR1LJbxk")
 
     private val failedSet = mutableSetOf<String>()
 
