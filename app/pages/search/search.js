@@ -7,7 +7,7 @@ Page({
     scrollHeight:200,
     inputShowed: true,
     inputVal: "",
-    bookList: [{ "name": "极道天魔", "author": "滚开", "books": [{ "url": "https://www.aszw.org/book/168/168625/", "name": "极道天魔", "author": "滚开", "bookCoverImgUrl": "", "intro": "", "chapterList": [] }, { "url": "https://www.biquge5200.cc/58_58206/", "name": "极道天魔", "author": "滚开", "bookCoverImgUrl": "", "intro": "", "chapterList": [] }, { "url": "https://www.dhzw.org/book/165/165908/", "name": "极道天魔", "author": "滚开", "bookCoverImgUrl": "", "intro": "", "chapterList": [] }, { "url": "http://www.yunlaige.com/book/19984.html", "name": "极道天魔", "author": "滚开", "bookCoverImgUrl": "", "intro": "", "chapterList": [] }] }],
+    bookList: [],
   },
   onLoad:function(o){
     var page = this;

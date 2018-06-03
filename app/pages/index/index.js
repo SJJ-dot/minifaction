@@ -37,4 +37,59 @@ Page({
     this.data.books[index].bookCoverImgUrl = "../../images/laokuoteng.jpg"
     this.setData({ books: this.data.books })
   },
+  deleteBook:function(arg){
+    var page = this;
+    wx.showModal({
+      title: '删除选中书籍？',
+      content: '点击确定后将会彻底删除选中书籍的所有记录',
+      success:function(res){
+        if(res.confirm){
+          var index = arg.currentTarget.dataset.index;
+          var target = page.data.books[index]
+          var newBooks = page.data.books.splice(index, 1)
+          page.setData({
+            books: page.data.books
+          })
+          wx.getStorage({
+            key: wx.util.getGBookKey(target),
+            success: function(res) {
+              wx.removeStorage({
+                key: wx.util.getGBookKey(target),
+                success: function (res) {},
+              })
+              var count = 0;
+              var allCount = 0;
+              for (var i = 0; i < res.data.books.length;i++){
+                var b  = res.data.books[i]
+                wx.getStorage({
+                  key: b.url,
+                  success: function(res) {
+                    wx.removeStorage({
+                      key: res.data.url,
+                      success: function(res) {},
+                    })
+                    allCount += res.data.chapterList.length
+                    for (var j = 0; j < res.data.chapterList.length;j++){
+                        wx.removeStorage({
+                          key: res.data.chapterList[j].url,
+                          success: function(res) {},
+                          complete:function(){
+                            count++;
+                            if(count==allCount){
+                              wx.showToast({
+                                title: '删除成功',
+                              })
+                            }
+                          }
+                        })
+                    }
+                  },
+                })
+              }
+            },
+          })
+        }
+      }
+    })
+  }
 })

@@ -80,7 +80,6 @@ Page({
   },
   showChapter: function (index) {
     var page = this;
-    console.log("index " + index + " length:" + page.data.book.chapterList.length)
     if (index < 0){
       wx.showToast({
         icon: 'none',
