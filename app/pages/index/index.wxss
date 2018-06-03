@@ -3,7 +3,7 @@
 .item-cover {
   width: 200rpx;
   height: 300rpx;
-  margin: 3rpx;
+  margin: 10rpx;
 }
 
 .item-intro {
@@ -20,4 +20,9 @@
 
 .weui-media-box__info{
    line-height: 1.5em;
+}
+
+.item-intro-bd{
+  background-color: #FFF;
+  margin: 10rpx
 }

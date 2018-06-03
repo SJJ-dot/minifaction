@@ -2,9 +2,10 @@
 @import 'style/weui.wxss';
 
 page {
-  background-color: #f8f8f8;
+  background-color: #F6F4EE;
   font-size: 16px;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  color:#252525;
 }
 
 .page__hd {
@@ -43,3 +44,15 @@ page {
   width: 100%;
 }
 
+.item-intro-bd{
+  background-color: #FFF;
+  margin: 10rpx;
+  padding: 10rpx;
+}
+.item-intro-small{
+  justify-content:space-between;
+}
+.weui-media-box__info{
+  
+  color:#252525;
+}

@@ -1,6 +1,9 @@
 <!--pages/read/read.wxml-->
 <import src="../../wxParse/wxParse.wxml"/> 
-<view>{{name}} {{book.index}} {{success}} {{success==true}}</view>
-<view class="wxParse" >
+<view class='page'>
+<view class='item-intro-bd'>{{name}}</view>
+<view class="wxParse read" wx:if="{{success}}">
     <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+</view>
+<view wx:else> {{content}} </view>
 </view>

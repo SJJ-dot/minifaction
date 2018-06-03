@@ -2,19 +2,19 @@
 <view class="page">
 
   <view class="weui-flex flex-colum">
-    <view class="weui-flex" id='detailsHead'>
+    <view class="weui-flex item-intro-bd" id='detailsHead'>
       <image class='weui-flex item-cover' src='{{book.bookCoverImgUrl}}' binderror='bindDefaultImage' />
       <view class="weui-flex item-intro">
         <view class='weui-media-box__title'>{{book.name}}</view>
-        <view class='weui-media-box__info' bindtap='selectOrigin'>
+        <view class='item-intro-small' bindtap='selectOrigin'>
           <view>作者：{{book.author}}</view>
           <view>{{book.chapterList[book.chapterList.length-1].chapterName}}</view>
           <view>{{book.domain}}</view>
         </view>
       </view>
     </view>
-    <scroll-view scroll-y scroll-into-view="index{{book.index}}" style='height:{{scrollHeight}}px'>
-      <view>简介：</view>
+    <view class='item-intro-bd'>
+      <view >简介：</view>
       <view>{{book.intro}}</view>
       <view class='weui-flex'>
         <button class="weui-btn-area flex-grow" type="default" bindtap='chapterList'>章节目录</button>
@@ -31,7 +31,7 @@
 
         </view>
       </view>
-    </scroll-view>
+    </view>
   </view>
 
 </view>

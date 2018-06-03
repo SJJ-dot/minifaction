@@ -1,2 +1,6 @@
 /* pages/read/read.wxss */
 @import"../../wxParse/wxParse.wxss";
+
+.read{
+  font-size:1.5em;
+}

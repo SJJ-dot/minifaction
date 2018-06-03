@@ -83,6 +83,9 @@ Page({
     var chapter = page.data.book.chapterList[index];
     page.data.book.index = index;
     page.saveState();
+    wx.setNavigationBarTitle({
+      title: chapter.chapterName,
+    })
     page.setData({
       success : false,
       name: chapter.chapterName,
