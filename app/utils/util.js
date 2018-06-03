@@ -33,8 +33,12 @@ function http(obj) {
 function getGBookKey(item) {
   return "book:" + item.name + "-author:" + item.author
 }
-
+var regStr = "(http[s]?://([a-zA-Z\\d]+\\.)+[a-zA-Z\\d]+)/?"
+function getDomain(url){
+  return url.match(regStr)[1]
+}
 module.exports = {
   http: http,
   getGBookKey: getGBookKey,
+  getDomain:getDomain,
 }
