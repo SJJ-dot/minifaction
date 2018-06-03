@@ -63,23 +63,38 @@ Page({
     this.saveState()
   },
   onPullDownRefresh: function () {
+    var index = parseInt(this.data.book.index)
     if (this.data.success) {
-      this.showChapter(this.data.book.index - 1)
+      this.showChapter(index - 1)
     } else {
-      this.showChapter(this.data.book.index)
+      this.showChapter(index)
     }
   },
   onReachBottom: function () {
+    var index = parseInt(this.data.book.index)
     if (this.data.success) {
-      this.showChapter(this.data.book.index + 1)
+      this.showChapter(index + 1)
     } else {
-      this.showChapter(this.data.book.index)
+      this.showChapter(index)
     }
   },
   showChapter: function (index) {
     var page = this;
-    if (index < 0 || index >= page.data.book.chapterList.length)
+    console.log("index " + index + " length:" + page.data.book.chapterList.length)
+    if (index < 0){
+      wx.showToast({
+        icon: 'none',
+        title: '已经是第一章了！',
+      })
       return
+    }
+    if (index >= page.data.book.chapterList.length){
+      wx.showToast({
+        icon: 'none',
+        title: '已经是最后一章了！',
+      })
+      return
+    }
     var chapter = page.data.book.chapterList[index];
     page.data.book.index = index;
     page.saveState();
