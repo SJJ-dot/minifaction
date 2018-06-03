@@ -6,7 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    book: {}
+    book: {
+      index:0,
+    },
+    isShowChapter:false,
   },
 
   /**
@@ -19,6 +22,7 @@ Page({
       success: function (res) {
         var gbook = res.data.books[res.data.index];
         gbook.domain = wx.util.getDomain(gbook.url);
+        gbook.index = page.data.book.index;
         wx.getStorage({
           key: gbook.url,
           success: function(res) {
@@ -49,6 +53,7 @@ Page({
       success: function (res) {
         wx.hideNavigationBarLoading();
         res.domain = domain;
+        res.index = page.data.book.index;
         page.setData({ book: res })
         wx.setStorage({
           key: url,
@@ -93,5 +98,16 @@ Page({
       },
     });
 
+  },
+  chapterList:function(){
+    var page = this;
+    this.setData({
+      isShowChapter: !page.data.isShowChapter
+    })
+  },
+  startRead:function(){
+    wx.navigateTo({
+      url: '../read/read',
+    })
   }
 })

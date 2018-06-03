@@ -20,7 +20,7 @@ function http(obj) {
     },
     fail: function (res) {
       if (obj.fail !== undefined)
-        obj.fail(errMsg);
+        obj.fail(res.errMsg);
       wx.showToast({
         title: res.errMsg,
         icon: 'none',

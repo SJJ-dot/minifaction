@@ -2,16 +2,33 @@
 <view class="page">
   <view class="weui-flex flex-colum">
     <view class="weui-flex ">
-      <image class='cover' src='{{book.bookCoverImgUrl}}' binderror='bindDefaultImage'/>
+      <image class='cover' src='{{book.bookCoverImgUrl}}' binderror='bindDefaultImage' />
       <view class="weui-flex flex-colum">
-          <view>{{book.name}}</view>
-          <view>作者：{{book.author}}</view>
-          <view>{{book.chapterList[book.chapterList.length-1].chapterName}}</view>
-          <view bindtap='selectOrigin'>{{book.domain}}</view>
+        <view>{{book.name}}</view>
+        <view>作者：{{book.author}}</view>
+        <view>{{book.chapterList[book.chapterList.length-1].chapterName}}</view>
+        <view bindtap='selectOrigin'>{{book.domain}}</view>
       </view>
     </view>
     <view>简介：</view>
     <view>{{book.intro}}</view>
-
+    <view class='weui-flex'>
+      <button class="weui-btn-area flex-grow" type="default" bindtap='chapterList'>章节目录</button>
+      <navigator class="flex-grow" url='../read/read?index={{book.index}}' >
+        <button class="weui-btn-area" type="primary">开始阅读</button>
+      </navigator>
+    </view>
+    
+      <view class="kind-list__item-bd {{isShowChapter ? 'kind-list__item-bd_show' : ''}}">
+        <view class="weui-cells {{isShowChapter ? 'weui-cells_show' : ''}}">
+          <block wx:for="{{book.chapterList}}" wx:key="url">
+            <navigator url="../read/read?index={{index}}" class="weui-cell weui-cell_access">
+              <view class="weui-cell__bd">{{item.chapterName}}</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+          </block>
+        </view>
+      </view>
+    
   </view>
 </view>
