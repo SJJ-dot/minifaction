@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    scrollHeight: 200,
     book: {
       index:0,
     },
@@ -17,6 +18,11 @@ Page({
    */
   onLoad: function (options) {
     var page = this;
+
+    wx.createSelectorQuery().select('#detailsHead').boundingClientRect(function (rect) {
+      page.setData({ scrollHeight: wx.getSystemInfoSync().windowHeight - rect.height, });
+    }).exec()
+
     wx.getStorage({
       key: options.key,
       success: function (res) {
@@ -106,8 +112,9 @@ Page({
     })
   },
   startRead:function(){
+    var page = this;
     wx.navigateTo({
-      url: '../read/read',
+      url: '../read/read?url='+page.data.book.url,
     })
   }
 })

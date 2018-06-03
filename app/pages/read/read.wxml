@@ -1,2 +1,6 @@
 <!--pages/read/read.wxml-->
-<text>pages/read/read.wxml</text>
+<import src="../../wxParse/wxParse.wxml"/> 
+<view>{{name}} {{book.index}} {{success}} {{success==true}}</view>
+<view class="wxParse" >
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+</view>

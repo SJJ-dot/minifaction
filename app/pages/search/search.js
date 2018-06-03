@@ -40,7 +40,7 @@ Page({
       key: key,
       data: item,
       success:function(e){
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../details/details?key=' + key,
         })
       }
