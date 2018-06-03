@@ -70,13 +70,10 @@ Page({
       this.showChapter(index)
     }
   },
-  onReachBottom: function () {
+  changeChapter: function (arg) {
     var index = parseInt(this.data.book.index)
-    if (this.data.success) {
-      this.showChapter(index + 1)
-    } else {
-      this.showChapter(index)
-    }
+    var step = parseInt(arg.currentTarget.dataset.step)
+     this.showChapter(index + step)
   },
   showChapter: function (index) {
     var page = this;
