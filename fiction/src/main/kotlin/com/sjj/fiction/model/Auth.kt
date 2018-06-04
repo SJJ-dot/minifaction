@@ -18,7 +18,6 @@ class Auth {
 
     @Synchronized
     fun saveAuthToDisk() {
-        println("saveAuthToDisk")
         var stream: OutputStream? = null;
         try {
             stream = FileOutputStream(File("auth.properties"))

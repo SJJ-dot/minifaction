@@ -18,7 +18,6 @@ class AuthService {
     private lateinit var secret:String
 
     fun loginWeChat(code: String, version: String?): Mono<String> {
-        println(secret)
         return httpSource.loginWeChat(code, secret).map {
             if (it.errcode != 0) {
                 throw Exception(it.errmsg)
