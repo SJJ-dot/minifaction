@@ -17,7 +17,7 @@ class AuthService {
     @Autowired
     private lateinit var httpSource: HttpSource
     @Autowired
-    lateinit var auth: Auth
+    private lateinit var auth: Auth
 
     fun loginWeChat(code: String, secret: String): Mono<String> {
         return httpSource.loginWeChat(code, secret).map {
