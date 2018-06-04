@@ -21,8 +21,8 @@ class AuthController {
     private lateinit var authService: AuthService
 
     @RequestMapping(value = "/auth", method = [RequestMethod.GET])
-    fun auth(code: String, secret: String?): Mono<Result<String>> {
-        return authService.loginWeChat(code, secret ?: "ef1b6c497ddd5d0e21410b459236ef38").toResult()
+    fun auth(code: String, version: String?): Mono<Result<String>> {
+        return authService.loginWeChat(code, version).toResult()
     }
 
     @RequestMapping(value = "/query", method = [RequestMethod.GET])
