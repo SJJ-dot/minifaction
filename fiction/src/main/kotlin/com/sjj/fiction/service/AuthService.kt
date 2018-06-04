@@ -24,7 +24,7 @@ class AuthService {
             if (it.errcode != 0) {
                 throw Exception(it.errmsg)
             }
-            if (auth.agree.contains(it.openid)) {
+            if (!auth.open || auth.agree.contains(it.openid)) {
                 return@map "success"
             }
             if (!auth.reject.contains(it.openid)) {
