@@ -9,6 +9,7 @@ App({
         wx.util.http({
           url: 'https://hishen.top/fs/auth',
           data: {
+            version: "0.0.10",
             code: res.code,
           },
           success: function (res) {
