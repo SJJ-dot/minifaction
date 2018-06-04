@@ -9,7 +9,7 @@ import java.io.OutputStream
 import java.util.*
 
 @ConfigurationProperties(prefix = "auth")
-@PropertySource("classpath:auth.properties")
+@PropertySource("file:auth.properties")
 @Component
 class Auth {
     var ignoreVersions = mutableSetOf<String>()
