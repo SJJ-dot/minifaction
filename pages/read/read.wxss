@@ -1,6 +1,8 @@
 /* pages/read/read.wxss */
 @import "../../wxParse/wxParse.wxss";
-
+page{
+  height: 100%;
+}
 .read {
   font-size: 1.5em;
   color: #252525;
@@ -12,11 +14,10 @@
 }
 
 .content{
-   flex: 1 0 auto;
+   flex: 1;
 }
 
 .weui-flex-r {
-  justify-content:space-between;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
 }
