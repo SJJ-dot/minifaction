@@ -53,11 +53,12 @@ class AuthService {
             stream = FileOutputStream(File("application.properties"))
             val properties = Properties();
             auth.agree.forEachIndexed { index, s ->
-                properties.setProperty("agree[$index]", s)
+                properties.setProperty("auth.agree[$index]", s)
             }
             auth.reject.forEachIndexed { index, s ->
-                properties.setProperty("reject[$index]", s)
+                properties.setProperty("auth.reject[$index]", s)
             }
+            properties.setProperty("auth.open","false")
             properties.store(stream, "auth list")
         } finally {
             stream?.close()
