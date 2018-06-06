@@ -1,11 +1,13 @@
 //app.js
 
 App({
+  data: {},
   onLaunch: function () {
     wx.util = require("./utils/util.js");
     wx.login({
       success: res => {
-
+        if (wx.getStorageSync("auth"))
+          getApp().data.baseUrl = "https://hishen.top/fs/";
         wx.util.http({
           url: 'https://hishen.top/fs/auth',
           data: {
@@ -21,14 +23,10 @@ App({
           },
           reject: function (res) {
             wx.setStorageSync("auth", false)
-          },
-          fail: function () {
-            if (wx.getStorageSync("auth"))
-              getApp().data.baseUrl = "https://hishen.top/fs/";
+            getApp().data.baseUrl = "No access"
           }
         })
       }
     })
-  },
-  data: {}
+  }
 })
