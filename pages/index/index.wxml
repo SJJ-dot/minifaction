@@ -1,7 +1,6 @@
 <!--index.wxml-->
 <view class="page">
   <view class='weui-flex' style='flex-direction: column;'>
-    <view>
       <navigator url="../search/search">
         <view class="weui-search-bar">
           <view class="weui-search-bar__form">
@@ -13,7 +12,6 @@
           </view>
         </view>
       </navigator>
-    </view>
     <navigator wx:if="{{books.length>0}}" wx:for="{{books}}" wx:key="url" url='../details/details?key={{item.key}}' data-index='{{index}}' bindlongpress='deleteBook'>
       <view class="weui-flex item-intro-bd">
         <image class='weui-flex item-cover' src='{{item.bookCoverImgUrl}}' data-index='{{index}}' binderror='bindDefaultImage' />

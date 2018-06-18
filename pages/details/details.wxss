@@ -78,6 +78,7 @@
 .kind-list__item-bd_show {
   height: auto;
 }
+
 .item-cover {
   width: 200rpx;
   height: 300rpx;
@@ -88,6 +89,7 @@
   flex-direction: column;
   justify-content: space-between;
   flex-basis: 0%;
+  flex-grow: 1;
 }
 
 .text-ellipsis {
@@ -96,6 +98,6 @@
   white-space: nowrap;
 }
 
-.weui-media-box__info{
-   line-height: 1.5em;
+.weui-media-box__info {
+  line-height: 1.5em;
 }
