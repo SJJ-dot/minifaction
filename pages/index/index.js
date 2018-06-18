@@ -42,6 +42,7 @@ Page({
           data: res,
           complete: function() {
             var books = page.data.books
+            res.key = wx.util.getGBookKey(res)
             books[index] = res
             page.setData({
               books: books,
