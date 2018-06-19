@@ -8,6 +8,10 @@
   color:#252525;
 }
 
+.redText{
+  color:red;
+}
+
 .page__hd {
   padding: 40px;
 }
