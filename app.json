@@ -6,9 +6,9 @@
     "pages/read/read"
   ],
   "window": {
-    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "看小说",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "debug":false
 }

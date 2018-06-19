@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "书架",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "backgroundColor": "#F6F4EE"
+  
 }
