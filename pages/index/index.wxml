@@ -19,7 +19,7 @@
           <view class='weui-media-box__title'>{{item.name}}</view>
           <view class='item-intro-small'>
             <view>作者：{{item.author}}</view>
-            <view>{{item.chapterList[item.chapterList.length-1].chapterName}}</view>
+            <view>{{(item.newNum?"新*":"")+(item.chapterList[item.chapterList.length-1].chapterName)}}</view>
             <view>{{item.domain}}</view>
           </view>
         </view>
