@@ -14,7 +14,7 @@ Page({
     var completeCount = 0
     var page = this;
     for (var i = 0; i < page.data.books.length; i++) {
-      page.requetDetails(i, function () {
+      page.requetDetails(page.data.books[i], function () {
         completeCount++
         if (completeCount == page.data.books.length) {
           wx.hideNavigationBarLoading()
@@ -23,8 +23,7 @@ Page({
     }
   },
 
-  requetDetails: function (index, complete_) {
-    var book = this.data.books[index];
+  requetDetails: function (book, complete_) {
     // wx.showNavigationBarLoading();
     var page = this;
     wx.util.http({
@@ -34,31 +33,32 @@ Page({
       },
       success: function (res) {
         // wx.hideNavigationBarLoading();
-        res.domain = book.domain;
-        res.index = book.index;
+        // res.domain = book.domain;
+        // res.index = book.index;
         // page.setData({ book: res })
-        wx.setStorage({
-          key: book.url,
-          data: res,
-          complete: function () {
-            var books = page.data.books
-            res.key = wx.util.getGBookKey(res)
-            
-            var newNum = res.chapterList.length - books[index].chapterList.length
-            res.newNum = newNum >= 0 ? newNum : 0
-            books[index] = res
-            books.sort(function (a, b) {
-              var aN = a.newNum || 0
-              var bN = b.newNum || 0
-              return aN > bN ? -1 : aN < bN ? 1 : 0
-            })
-            page.setData({
-              books: books,
-            })
-            complete_()
-          }
-        })
-
+        var newNum = res.chapterList.length - book.chapterList.length
+        if(newNum == 0){
+          complete_()
+        }else{
+          book.chapterList = res.chapterList
+          wx.setStorage({
+            key: book.url,
+            data: book,
+            complete: function () {
+              var books = page.data.books
+              book.newNum = newNum >= 0 ? newNum : 0
+              books.sort(function (a, b) {
+                var aN = a.newNum || 0
+                var bN = b.newNum || 0
+                return aN > bN ? -1 : aN < bN ? 1 : 0
+              })
+              page.setData({
+                books: books,
+              })
+              complete_()
+            }
+          })
+        }
       },
       fail: function (res) {
         // wx.hideNavigationBarLoading();

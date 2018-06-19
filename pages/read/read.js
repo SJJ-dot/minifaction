@@ -9,7 +9,10 @@ Page({
     book: {},
     success:false,
   },
+  
+  onReachBottom:function(obj){
 
+  },
   onLoad: function (options) {
 
     var that = this;
@@ -108,7 +111,10 @@ Page({
         WxParse.wxParse('article', 'html', res.data.content, page, 5);
         page.setData({
          success :true,
-         content: "加载完成"
+         content: "加载完成",
+         callback:function(){
+
+         }
         })
         wx.stopPullDownRefresh()
       },
@@ -119,7 +125,10 @@ Page({
             WxParse.wxParse('article', 'html', res.content, page, 5);
             page.setData({
               success: true,
-              content: "加载完成"
+              content: "加载完成",
+              callback: function () {
+                
+              }
             })
             wx.setStorage({
               key: res.url,
