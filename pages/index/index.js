@@ -43,7 +43,7 @@ Page({
           complete: function () {
             var books = page.data.books
             res.key = wx.util.getGBookKey(res)
-            console.log(books[index])
+            
             var newNum = res.chapterList.length - books[index].chapterList.length
             res.newNum = newNum >= 0 ? newNum : 0
             books[index] = res
