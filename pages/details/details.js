@@ -8,9 +8,9 @@ Page({
   data: {
     scrollHeight: 200,
     book: {
-      index:0,
+      index: 0,
     },
-    isShowChapter:false,
+    isShowChapter: 0,
   },
 
   /**
@@ -31,12 +31,12 @@ Page({
         gbook.index = page.data.book.index;
         wx.getStorage({
           key: gbook.url,
-          success: function(res) {
+          success: function (res) {
             page.setData({
               book: res.data
             })
           },
-          fail:function(){
+          fail: function () {
             page.setData({
               book: gbook
             })
@@ -83,7 +83,7 @@ Page({
       key: key,
       success: function (res) {
         var list = [];
-        for (var i = 0; i<res.data.books.length;i++) {
+        for (var i = 0; i < res.data.books.length; i++) {
           list.push(wx.util.getDomain(res.data.books[i].url))
         }
         wx.showActionSheet({
@@ -93,9 +93,9 @@ Page({
             wx.setStorage({
               key: key,
               data: res.data,
-              success:function(){
+              success: function () {
                 wx.redirectTo({
-                  url: './details?key='+key
+                  url: './details?key=' + key
                 })
               }
             })
@@ -105,16 +105,18 @@ Page({
     });
 
   },
-  chapterList:function(){
+  chapterList: function () {
     var page = this;
+    var num = page.data.isShowChapter + 1
+    num = num > 2 ? 0 : num
     this.setData({
-      isShowChapter: !page.data.isShowChapter
+      isShowChapter: num
     })
   },
-  startRead:function(){
+  startRead: function () {
     var page = this;
     wx.navigateTo({
-      url: '../read/read?url='+page.data.book.url,
+      url: '../read/read?url=' + page.data.book.url,
     })
   }
 })
