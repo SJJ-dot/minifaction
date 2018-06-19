@@ -2,7 +2,7 @@
 <view class="page">
 
   <view class="weui-flex flex-colum">
-    <view class="weui-flex item-intro-bd" id='detailsHead'>
+    <view class="weui-flex item-intro-bd" >
       <image class='weui-flex item-cover' src='{{book.bookCoverImgUrl}}' binderror='bindDefaultImage' />
       <view class="weui-flex item-intro">
         <view class='weui-media-box__title'>{{book.name}}</view>

@@ -11,6 +11,7 @@ Page({
       index: 0,
     },
     isShowChapter: 0,
+    toView:"index1",
   },
 
   /**
@@ -18,10 +19,6 @@ Page({
    */
   onLoad: function (options) {
     var page = this;
-
-    wx.createSelectorQuery().select('#detailsHead').boundingClientRect(function (rect) {
-      page.setData({ scrollHeight: wx.getSystemInfoSync().windowHeight - rect.height, });
-    }).exec()
 
     wx.getStorage({
       key: options.key,
