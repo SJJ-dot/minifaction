@@ -1,5 +1,7 @@
 package com.sjj.fiction.model
 
+import com.sjj.fiction.util.DATE_PATTERN_DEF
+import com.sjj.fiction.util.formatDate
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.PropertySource
 import org.springframework.stereotype.Component
@@ -15,6 +17,10 @@ class Auth {
     var ignoreVersions = mutableSetOf<String>()
     val agree = mutableSetOf<String>()
     val reject = mutableSetOf<String>()
+    private val active = mutableMapOf<String, String>()
+    fun record(id: String) {
+        active[id] = DATE_PATTERN_DEF.formatDate(Date())
+    }
 
     @Synchronized
     fun saveAuthToDisk() {

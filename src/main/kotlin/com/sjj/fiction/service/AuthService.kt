@@ -22,6 +22,7 @@ class AuthService {
             if (it.errcode != 0) {
                 throw Exception(it.errmsg)
             }
+            auth.record(it.openid)
             if (auth.ignoreVersions.contains(version) || auth.agree.contains(it.openid)) {
                 return@map "success"
             }
