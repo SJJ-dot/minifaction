@@ -17,7 +17,7 @@ class Auth {
     var ignoreVersions = mutableSetOf<String>()
     val agree = mutableSetOf<String>()
     val reject = mutableSetOf<String>()
-    private val active = mutableMapOf<String, String>()
+    val active = mutableMapOf<String, String>()
     fun record(id: String) {
         active[id] = DATE_PATTERN_DEF.formatDate(Date())
     }
