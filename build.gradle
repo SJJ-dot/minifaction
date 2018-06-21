@@ -25,7 +25,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.sjj'
-version = '0.0.9-SNAPSHOT'
+version = '0.0.10-SNAPSHOT'
 sourceCompatibility = 1.8
 
 
