@@ -37,11 +37,15 @@ Page({
             page.setData({
               book: gbook
             })
+            page.requetDetails(gbook)
           }
         })
-        page.requetDetails(gbook)
       },
     })
+  },
+  onPullDownRefresh:function(){
+    wx.stopPullDownRefresh()
+    this.requetDetails(this.data.book)
   },
   requetDetails: function (res) {
     var domain = res.domain;

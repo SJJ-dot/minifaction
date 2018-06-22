@@ -1,5 +1,6 @@
 {
-  "window": {
-    "navigationBarTitleText": "简介"
-  }
+  "navigationBarTitleText": "简介",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "backgroundColor": "#F6F4EE"
 }
